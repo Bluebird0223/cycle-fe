@@ -6,7 +6,7 @@ import Register from "./components/User/Register";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { loadUser } from "./actions/userAction";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UpdateProfile from "./components/User/UpdateProfile";
 import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
@@ -54,10 +54,16 @@ import PaymentPolicy from "./components/PaymentPolicy";
 import ShippingPolicy from "./components/ShippingPolicy";
 import CancellationPolicy from "./components/CancellationPolicy";
 import UpdateProductGroup from "./components/Admin/UpdateProductGroup";
+import { fetchCartItems } from "./store/cartSlice";
+import { fetchSaveForLater } from "./store/saveForLaterSlice";
+import { fetchWishlistItems } from "./store/wishlistSlice";
+import { fetchUserDetails } from "./store/userSlice";
+import AdminProtectedRoute from "./Routes/AdminProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const { user } = useSelector((state) => state.user);
   // Check if the route is an admin route
   const isAdminRoute = pathname.startsWith("/admin");
 
@@ -75,6 +81,25 @@ function App() {
       },
     });
   });
+
+
+  // fetch user details on initial laod
+  useEffect(() => {
+    dispatch(fetchUserDetails());
+    // getStripeApiKey();
+  }, []);
+
+  useEffect(() => {
+    // if user is login then we call Cart,save for later and wishlist api
+    if (user) {
+      // Fetch cart items on component mount
+      dispatch(fetchCartItems());
+      // Fetch save for later items on component mount
+      dispatch(fetchSaveForLater());
+      // Fetch wishlist items on component mount
+      dispatch(fetchWishlistItems());
+    }
+  }, [user]);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -104,8 +129,8 @@ function App() {
       {!isAdminRoute && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
-        {/*
-         <Route path="/login" element={<Login />} />
+
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
@@ -119,97 +144,9 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/payment-policy" element={<PaymentPolicy />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
-        <Route path="/cancellation-policy" element={<CancellationPolicy />} /> 
-        */}
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
 
-        {/* order process */}
-        {/* <Route
-          path="/shipping"
-          element={
-            <ProtectedRoute>
-              <Shipping />
-            </ProtectedRoute>
-          }
-        ></Route> */}
-
-        {/* <Route
-          path="/order/confirm"
-          element={
-            <ProtectedRoute>
-              <OrderConfirm />
-            </ProtectedRoute>
-          }
-        ></Route> */}
-
-        <Route
-          path="/process/payment"
-          element={
-            <ProtectedRoute>
-              {/* // stripeApiKey && ( */}
-              {/* // <Elements stripe={loadStripe(stripeApiKey)}> */}
-              <Payment />
-              {/* // </Elements> */}
-              {/* ) */}
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/orders/success"
-          element={<OrderSuccess success={true} />}
-        />
-        <Route
-          path="/orders/failed"
-          element={<OrderSuccess success={false} />}
-        />
-        {/* order process */}
-
-        <Route
-          path="/order/:id"
-          element={
-            <ProtectedRoute>
-              <OrderStatus />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/orders"
-          element={
-            <ProtectedRoute>
-              <MyOrders />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/order_details/:id"
-          element={
-            <ProtectedRoute>
-              <OrderDetails />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute>
-              <Account />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/account/update"
-          element={
-            <ProtectedRoute>
-              <UpdateProfile />
-            </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
+        <Route    
           path="/password/update"
           element={
             <ProtectedRoute>
@@ -218,211 +155,370 @@ function App() {
           }
         ></Route>
 
-        <Route path="/password/forgot" element={<ForgotPassword />} />
-
-        <Route path="/password/reset/:token" element={<ResetPassword />} />
-
         <Route
-          path="/wishlist"
+          path="wishlist"
           element={
             <ProtectedRoute>
               <Wishlist />
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
-          path="/admin/dashboard"
+          path="account"
           element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={0}>
-              <MainData />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/orders"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={1}>
-              <OrderTable />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/order/:id"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={1}>
-              <UpdateOrder />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/products"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={2}>
-              <ProductTable />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/new_product"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={2}>
-              <NewProduct />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/product/:id"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={2}>
-              <UpdateProduct />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        {/* <Route
-          path="/admin/users"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <UserTable />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route> */}
-        <Route
-          path="/admin/category"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <Category />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin/category/:id"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <UpdateCategory />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin/new_category"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <AddCategory />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin/subcategory"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <Subcategory />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin/new_subcategory"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <AddSubcategory />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin/subcategory/:id"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <UpdateSubcategory />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/user/:id"
-          element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={4}>
-              <UpdateUser />
-            </Dashboard>
-            // </ProtectedRoute>
-          }
-        ></Route>
-
-        <Route
-          path="/admin/reviews"
-          element={
-            <ProtectedRoute isAdmin={true}>
-              <Dashboard activeTab={5}>
-                <ReviewsTable />
-              </Dashboard>
+            <ProtectedRoute>
+              <Account />
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
-          path="/admin/product-groups"
+          path="orders"
           element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={3}>
-              <ProductsGroups />
-            </Dashboard>
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
           }
         ></Route>
-
         <Route
-          path="/admin/new-product-group"
+          path="order_details/:id"
           element={
-            // <ProtectedRoute isAdmin={true}>
-            <Dashboard activeTab={3}>
-              <NewProductGroup />
-            </Dashboard>
-            // </ProtectedRoute>
+            <ProtectedRoute>
+              <OrderDetails />
+            </ProtectedRoute>
           }
         ></Route>
-
         <Route
-          path="/admin/update-product-group/:id"
+          path="/shipping"
           element={
-            <Dashboard activeTab={3}>
-              <UpdateProductGroup />
-            </Dashboard>
+            <ProtectedRoute>
+              <Shipping />
+            </ProtectedRoute>
           }
         ></Route>
+        <Route
+          path="/order/confirm"
+          element={
+            <ProtectedRoute>
+              <OrderConfirm />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/process/payment"
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/orders/success"
+          element={<OrderSuccess success={true} />}
+        />
+        <Route
+          path="/orders/failed"
+          element={<OrderSuccess success={false} />}
+        >
+      </Route>
+      {/* shared route  */}
 
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+      <Route
+        path="/order/:id"
+        element={
+          <ProtectedRoute>
+            <OrderStatus />
+          </ProtectedRoute>
+        }
+      ></Route>
+
+      <Route path="/password/reset/:token" element={<ResetPassword />} />
+
+      {/* Admin Routes  */}
+      <Route
+        path="/admin/dashboard"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={0}>
+              <MainData />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={1}>
+              <OrderTable />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/order/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={1}>
+              <UpdateOrder />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/products"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={2}>
+              <ProductTable />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/new_product"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={2}>
+              <NewProduct />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/product/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={2}>
+              <UpdateProduct />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/category"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={3}>
+              <Category />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/category/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={3}>
+              <UpdateCategory />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_category"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={3}>
+              <AddCategory />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/subcategory"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={4}>
+              <Subcategory />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_subcategory"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={4}>
+              <AddSubcategory />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/subcategory/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={4}>
+              <UpdateSubcategory />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/users"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={5}>
+              <UserTable />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/user/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={5}>
+              <UpdateUser />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/admin/reviews"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={6}>
+              <ReviewsTable />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      {/* <Route
+        path="/admin/department"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={7}>
+              <Department />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_department"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={7}>
+              <AddDepartment />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/department/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={7}>
+              <UpdateDepartment />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/subdepartment"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={8}>
+              <SubDepartment />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_subdepartment"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={8}>
+              <AddSubDepartment />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/subdepartment/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={8}>
+              <UpdateSubDepartment />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/department-users"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={9}>
+              <DepartmentUsers />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_department_users"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={9}>
+              <AddDepartmentUser />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/department-users/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={9}>
+              <UpdateDepartmentUser />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route> */}
+      {/* <Route
+        path="/admin/coupons"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={10}>
+              <Coupon />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/new_coupon"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={10}>
+              <AddCoupon />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route>
+      <Route
+        path="/admin/coupons/:id"
+        element={
+          <AdminProtectedRoute>
+            <Dashboard activeTab={10}>
+              <UpdateCoupon />
+            </Dashboard>
+          </AdminProtectedRoute>
+        }
+      ></Route> */}
+
+
+      <Route path="/password/forgot" element={<ForgotPassword />} />
+
+      <Route path="/password/reset/:token" element={<ResetPassword />} />
+      <Route path="*" element={<NotFound />}></Route>
+
+    </Routes >
       <Footer />
     </>
   );
