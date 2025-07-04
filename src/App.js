@@ -48,12 +48,12 @@ import AddSubcategory from "./components/Admin/NewSubcategory";
 import Subcategory from "./components/Admin/SubCategory";
 import UpdateCategory from "./components/Admin/UpdateCategory";
 import UpdateSubcategory from "./components/Admin/UpdateSubCategory";
-import ProductsGroups from "./components/Admin/ProductsGroups";
-import NewProductGroup from "./components/Admin/NewProductGroup";
+// import ProductsGroups from "./components/Admin/ProductsGroups";
+// import NewProductGroup from "./components/Admin/NewProductGroup";
 import PaymentPolicy from "./components/PaymentPolicy";
 import ShippingPolicy from "./components/ShippingPolicy";
 import CancellationPolicy from "./components/CancellationPolicy";
-import UpdateProductGroup from "./components/Admin/UpdateProductGroup";
+// import UpdateProductGroup from "./components/Admin/UpdateProductGroup";
 import { fetchCartItems } from "./store/cartSlice";
 import { fetchSaveForLater } from "./store/saveForLaterSlice";
 import { fetchWishlistItems } from "./store/wishlistSlice";
@@ -132,7 +132,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/about" element={<AboutUs />} />
+        {/* <Route path="/about" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
@@ -144,7 +144,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/payment-policy" element={<PaymentPolicy />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
-        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} /> */}
 
         <Route    
           path="/password/update"
@@ -391,96 +391,6 @@ function App() {
           </AdminProtectedRoute>
         }
       ></Route>
-      {/* <Route
-        path="/admin/department"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={7}>
-              <Department />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/new_department"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={7}>
-              <AddDepartment />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/department/:id"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={7}>
-              <UpdateDepartment />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/subdepartment"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={8}>
-              <SubDepartment />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/new_subdepartment"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={8}>
-              <AddSubDepartment />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/subdepartment/:id"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={8}>
-              <UpdateSubDepartment />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/department-users"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={9}>
-              <DepartmentUsers />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/new_department_users"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={9}>
-              <AddDepartmentUser />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route>
-      <Route
-        path="/admin/department-users/:id"
-        element={
-          <AdminProtectedRoute>
-            <Dashboard activeTab={9}>
-              <UpdateDepartmentUser />
-            </Dashboard>
-          </AdminProtectedRoute>
-        }
-      ></Route> */}
       {/* <Route
         path="/admin/coupons"
         element={

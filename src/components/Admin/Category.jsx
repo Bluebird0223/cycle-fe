@@ -6,40 +6,8 @@ import { useSnackbar } from "notistack"
 import { Link } from "react-router-dom"
 import { Switch, Button, IconButton } from "@mui/material"
 import { Edit, Delete } from "@mui/icons-material"
+import { adminCommunication } from "../../service/adminCommunication"
 
-// Mock API service - replace with your actual service
-const adminCommunication = {
-  getAllCategory: async () => {
-    // Mock response
-    return {
-      data: {
-        success: true,
-        category: [
-          {
-            _id: "1",
-            name: "Electronics",
-            image: [{ url: "/placeholder.svg?height=100&width=100" }],
-            isActive: true,
-          },
-          {
-            _id: "2",
-            name: "Clothing",
-            image: [{ url: "/placeholder.svg?height=100&width=100" }],
-            isActive: false,
-          },
-        ],
-      },
-    }
-  },
-  updateCategoryStatus: async (id) => {
-    console.log("Updating status for:", id)
-    return { data: { success: true } }
-  },
-  deleteCategory: async (id) => {
-    console.log("Deleting category:", id)
-    return { data: { success: true } }
-  },
-}
 
 const Category = () => {
   const { enqueueSnackbar } = useSnackbar()
@@ -91,38 +59,38 @@ const Category = () => {
   }
 
   const deleteCategoryHandler = async (categoryId) => {
-    if (window.confirm("Are you sure you want to delete this category? This action cannot be undone.")) {
-      setDeleteLoading(true)
-      try {
-        // Find the actual category to get the correct _id
-        const category = categories.find((cat) => cat._id === categoryId)
-        if (!category) {
-          enqueueSnackbar("Category not found.", { variant: "error" })
-          setDeleteLoading(false)
-          return
-        }
 
-        console.log("Deleting category with ID:", category._id)
-        const response = await adminCommunication.deleteCategory(category._id)
-        console.log("Delete response:", response)
-
-        if (response?.data?.success) {
-          enqueueSnackbar("Category deleted successfully", { variant: "success" })
-          // Update the categories list by removing the deleted category
-          setCategories((prevCategories) => prevCategories.filter((cat) => cat._id !== categoryId))
-        } else {
-          const errorMessage = response?.data?.message || "Failed to delete category. Please try again."
-          console.error("Delete failed:", errorMessage)
-          enqueueSnackbar(errorMessage, { variant: "error" })
-        }
-      } catch (error) {
-        console.error("Delete category error:", error)
-        const errorMessage =
-          error?.response?.data?.message || error?.message || "Error deleting category. Please try again."
-        enqueueSnackbar(errorMessage, { variant: "error" })
-      } finally {
+    setDeleteLoading(true)
+    try {
+      // Find the actual category to get the correct _id
+      const category = categories.find((cat) => cat._id === categoryId)
+      if (!category) {
+        enqueueSnackbar("Category not found.", { variant: "error" })
         setDeleteLoading(false)
+        return
       }
+
+      console.log("Deleting category with ID:", category._id)
+      const response = await adminCommunication.deleteCategory(category._id)
+      console.log("Delete response:", response)
+
+      if (response?.data?.success) {
+        enqueueSnackbar("Category deleted successfully", { variant: "success" })
+        // Update the categories list by removing the deleted category
+        setCategories((prevCategories) => prevCategories.filter((cat) => cat._id !== categoryId))
+      } else {
+        const errorMessage = response?.data?.message || "Failed to delete category. Please try again."
+        console.error("Delete failed:", errorMessage)
+        enqueueSnackbar(errorMessage, { variant: "error" })
+      }
+    } catch (error) {
+      console.error("Delete category error:", error)
+      const errorMessage =
+        error?.response?.data?.message || error?.message || "Error deleting category. Please try again."
+      enqueueSnackbar(errorMessage, { variant: "error" })
+    } finally {
+      setDeleteLoading(false)
+
     }
   }
 

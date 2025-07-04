@@ -25,8 +25,8 @@ export function getServerUrl() {
 export const publicCommunication = {
   registerUser: async function (formData) {
     try {
-      const config = { 
-        headers: { 
+      const config = {
+        headers: {
           "Content-Type": "application/json"
         },
         timeout: 30000 // 30 second timeout
@@ -76,6 +76,7 @@ export const publicCommunication = {
   },
   loginUser: async function (email, password) {
     try {
+      console.log(email, password, getServerUrl())
       const config = { headers: { "Content-Type": "application/json" } };
       return await axios.post(
         `${getServerUrl()}/api/v1/login`,
@@ -114,12 +115,12 @@ export const publicCommunication = {
         return { data: { success: false, message: "Request was canceled" } };
       } else {
         console.error("Error fetching categories:", error?.message);
-        return { 
-          data: { 
-            success: false, 
+        return {
+          data: {
+            success: false,
             message: error.response?.data?.message || error.message || "Failed to fetch categories",
-            category: [] 
-          } 
+            category: []
+          }
         };
       }
     }

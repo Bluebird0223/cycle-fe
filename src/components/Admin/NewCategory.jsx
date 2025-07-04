@@ -27,20 +27,22 @@ const AddCategory = () => {
   const [name, setName] = useState("");
   const [logo, setLogo] = useState("");
   const [logoPreview, setLogoPreview] = useState("");
-
-  console.log(logo)
   const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
     const reader = new FileReader();
-    console.log(reader);
+
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setLogoPreview(reader.result);
-        // setLogo(reader.result);
+        setLogoPreview(reader.result);  // For image preview
       }
     };
-    setLogo(e.target.files[0]);
 
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(file); // Only for previewing
+
+    // For uploading (important!)
+    setLogo(file);  // This must be the actual File object
   };
   const newCategorySubmitHandler = async (e) => {
     e.preventDefault();
@@ -54,7 +56,6 @@ const AddCategory = () => {
 
     formData.append("name", name);
     formData.append("image", logo);
-    console.log(formData)
     try {
       // setLoading(true);
       const serverResponse = await adminCommunication.createCategory(formData);

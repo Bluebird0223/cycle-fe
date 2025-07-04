@@ -51,20 +51,9 @@ export const adminCommunication = {
   },
   login: async function (dataToSend) {
     try {
+      console.log('dataToSend', dataToSend)
       const config = { headers: { "Content-Type": "application/json" } };
       return axios.post(`${getServerUrl()}/api/v1/login`, dataToSend, config);
-    } catch (error) {
-      return { data: { success: false, message: error.message } };
-    }
-  },
-  deptLoginUser: async function (dataToSend) {
-    try {
-      const config = { headers: { "Content-Type": "application/json" } };
-      return axios.post(
-        `${getServerUrl()}/api/v1/admin/dept/login`,
-        dataToSend,
-        config
-      );
     } catch (error) {
       return { data: { success: false, message: error.message } };
     }
@@ -189,23 +178,13 @@ export const adminCommunication = {
       return { data: { success: false, message: error.message } };
     }
   },
+
   createCategory: async function (categoryData) {
     try {
-      const config = { header: { "Content-Type": "multipart/form-data" } };
-      const { data } = await axios.post(
-        `${getServerUrl()}/api/v1/product/category/new`,
-        categoryData,
-        config
-      );
-
-      if (data.success) {
-        return true;
-      } else {
-        return false;
-      }
+      const config = { headers: { "Content-Type": "multipart/form-data" } }
+      return axios.post(`${getServerUrl()}/api/v1/product/category/new`, categoryData, config);
     } catch (error) {
-      console.log(error);
-      return false;
+      return { data: { success: false, message: error.message } };
     }
   },
   createSubcategory: async function (subCategoryData) {
@@ -702,9 +681,9 @@ export const adminCommunication = {
         }
       );
 
-      if(data?.success){
+      if (data?.success) {
         return true
-      }else{
+      } else {
         return false
       }
     } catch (error) {

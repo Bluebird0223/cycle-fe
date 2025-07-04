@@ -42,7 +42,7 @@ import { deleteCookie, getCookie, getCookies } from "cookies-next";
 import { loginSuccess } from "../store/userSlice";
 import { initializeWishlist } from "../store/wishlistSlice";
 import { initializeCart } from "../store/cartSlice";
-const tokenName = process.env.REACT_APP_TOKENNAME;
+const tokenName = process.env.REACT_APP_ADMIN_TOKENNAME;
 
 // Login User
 export const loginUser = (email, password) => async (dispatch) => {
@@ -113,13 +113,11 @@ export const loadUser = () => async (dispatch) => {
         Authorization: `Bearer ${getCookie(tokenName)}`,
       },
     };
-
     const { data } = await axios.get(`${server}/api/v1/me`, config);
     // dispatch({
     //   type: LOAD_USER_SUCCESS,
     //   payload: data.user,
     // });
-    console.log(data)
     if (data.success) {
       dispatch(loginSuccess(data?.user));
       dispatch(initializeWishlist(data?.user?.wishlist));
@@ -307,6 +305,8 @@ export const updateUser = (id, userData) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie(tokenName)}`,
+
       },
     };
 
@@ -332,7 +332,15 @@ export const updateUser = (id, userData) => async (dispatch) => {
 export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST });
-    const { data } = await axios.delete(`${server}/api/v1/admin/user/${id}`);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie(tokenName)}`,
+      },
+    };
+
+    const { data } = await axios.delete(`${server}/api/v1/admin/user/${id}`, config);
 
     dispatch({
       type: DELETE_USER_SUCCESS,

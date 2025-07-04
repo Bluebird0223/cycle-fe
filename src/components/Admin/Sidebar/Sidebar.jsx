@@ -40,11 +40,11 @@ const navMenu = [
       label: "Products",
       ref: "/admin/products",
    },
-   {
-      icon: <AutoAwesomeMotionIcon />,
-      label: "Product Groups",
-      ref: "/admin/product-groups",
-   },
+   // {
+   //    icon: <AutoAwesomeMotionIcon />,
+   //    label: "Product Groups",
+   //    ref: "/admin/product-groups",
+   // },
    {
       icon: <CategoryIcon />,
       label: "Category",
@@ -55,11 +55,11 @@ const navMenu = [
    //    label: "Sub-category",
    //    ref: "/admin/subcategory",
    // },
-   // {
-   //    icon: <GroupIcon />,
-   //    label: "Users",
-   //    ref: "/admin/users",
-   // },
+   {
+      icon: <GroupIcon />,
+      label: "Users",
+      ref: "/admin/users",
+   },
    // {
    //    icon: <ReviewsIcon />,
    //    label: "Reviews",
@@ -153,16 +153,15 @@ const Sidebar = ({ activeTab, setToggleSidebar, toggleSidebar }) => {
 
    return (
       <aside
-         className={`${
-            toggleSidebar ? "sidebar" : "sidebarClosed"
-         } min-h-screen pb-5 bg-red-800 text-white border-r`}
+         className={`${toggleSidebar ? "sidebar" : "sidebarClosed"
+            } min-h-screen pb-5 bg-red-800 text-white border-r`}
       >
          <div className="flex items-center gap-3 bg-red-700 p-2 rounded-lg shadow-lg my-4 mx-3.5 ">
-            {/* <Avatar
+            <Avatar
                alt="Avatar"
-               src={logo}
-            /> */}
-            <img src={logo} className="w-12" alt="logo" />
+               src={user?.name}
+            />
+            {/* <img src={logo} className="w-12" alt="logo" /> */}
             {toggleSidebar && (
                <div className="flex flex-col gap-0">
                   <span className="font-medium text-lg">
@@ -200,11 +199,10 @@ const Sidebar = ({ activeTab, setToggleSidebar, toggleSidebar }) => {
                            <Link
                               to={ref}
                               title={label}
-                              className={`${
-                                 activeTab === index
+                              className={`${activeTab === index
                                     ? "bg-red-700"
                                     : "hover:bg-red-700"
-                              } flex gap-3 items-center py-3 px-4 font-medium`}
+                                 } flex gap-3 items-center py-3 px-4 font-medium`}
                            >
                               <span>{icon}</span>
                               {toggleSidebar && <span>{label}</span>}
@@ -228,11 +226,10 @@ const Sidebar = ({ activeTab, setToggleSidebar, toggleSidebar }) => {
                            <Link
                               to={ref}
                               title={label}
-                              className={`${
-                                 activeTab === index
+                              className={`${activeTab === index
                                     ? "bg-red-700"
                                     : "hover:bg-red-700"
-                              } flex gap-3 items-center py-3 px-4 font-medium`}
+                                 } flex gap-3 items-center py-3 px-4 font-medium`}
                            >
                               <span>{icon}</span>
                               {toggleSidebar && <span>{label}</span>}
