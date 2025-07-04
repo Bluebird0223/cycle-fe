@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react"
 import { DataGrid } from "@mui/x-data-grid"
 import { useSnackbar } from "notistack"
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom"
 import { Switch, Button, IconButton } from "@mui/material"
 import { Edit, Delete } from "@mui/icons-material"
 import { adminCommunication } from "../../service/adminCommunication"
+import Actions from "./Actions"
+import { deleteCategory } from "../../actions/categoryAction";
 
 
 const Category = () => {
@@ -14,6 +17,7 @@ const Category = () => {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -58,41 +62,45 @@ const Category = () => {
     }
   }
 
-  const deleteCategoryHandler = async (categoryId) => {
-
-    setDeleteLoading(true)
-    try {
-      // Find the actual category to get the correct _id
-      const category = categories.find((cat) => cat._id === categoryId)
-      if (!category) {
-        enqueueSnackbar("Category not found.", { variant: "error" })
-        setDeleteLoading(false)
-        return
-      }
-
-      console.log("Deleting category with ID:", category._id)
-      const response = await adminCommunication.deleteCategory(category._id)
-      console.log("Delete response:", response)
-
-      if (response?.data?.success) {
-        enqueueSnackbar("Category deleted successfully", { variant: "success" })
-        // Update the categories list by removing the deleted category
-        setCategories((prevCategories) => prevCategories.filter((cat) => cat._id !== categoryId))
-      } else {
-        const errorMessage = response?.data?.message || "Failed to delete category. Please try again."
-        console.error("Delete failed:", errorMessage)
-        enqueueSnackbar(errorMessage, { variant: "error" })
-      }
-    } catch (error) {
-      console.error("Delete category error:", error)
-      const errorMessage =
-        error?.response?.data?.message || error?.message || "Error deleting category. Please try again."
-      enqueueSnackbar(errorMessage, { variant: "error" })
-    } finally {
-      setDeleteLoading(false)
-
-    }
+  const deleteCategoryHandler = (id) => {
+    dispatch(deleteCategory(id));
   }
+
+  // const deleteCategoryHandler = async (categoryId) => {
+
+  //   setDeleteLoading(true)
+  //   try {
+  //     // Find the actual category to get the correct _id
+  //     const category = categories.find((cat) => cat._id === categoryId)
+  //     if (!category) {
+  //       enqueueSnackbar("Category not found.", { variant: "error" })
+  //       setDeleteLoading(false)
+  //       return
+  //     }
+
+  //     console.log("Deleting category with ID:", category._id)
+  //     const response = await adminCommunication.deleteCategory(category._id)
+  //     console.log("Delete response:", response)
+
+  //     if (response?.data?.success) {
+  //       enqueueSnackbar("Category deleted successfully", { variant: "success" })
+  //       // Update the categories list by removing the deleted category
+  //       setCategories((prevCategories) => prevCategories.filter((cat) => cat._id !== categoryId))
+  //     } else {
+  //       const errorMessage = response?.data?.message || "Failed to delete category. Please try again."
+  //       console.error("Delete failed:", errorMessage)
+  //       enqueueSnackbar(errorMessage, { variant: "error" })
+  //     }
+  //   } catch (error) {
+  //     console.error("Delete category error:", error)
+  //     const errorMessage =
+  //       error?.response?.data?.message || error?.message || "Error deleting category. Please try again."
+  //     enqueueSnackbar(errorMessage, { variant: "error" })
+  //   } finally {
+  //     setDeleteLoading(false)
+
+  //   }
+  // }
 
   const columns = [
     {
@@ -148,26 +156,27 @@ const Category = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <div className="flex gap-2">
-            <IconButton
-              component={Link}
-              to={`/admin/category/${params.row.id}`}
-              size="small"
-              color="primary"
-              title="Edit Category"
-            >
-              <Edit />
-            </IconButton>
-            <IconButton
-              onClick={() => deleteCategoryHandler(params.row.id)}
-              size="small"
-              color="error"
-              disabled={deleteLoading}
-              title="Delete Category"
-            >
-              <Delete />
-            </IconButton>
-          </div>
+          // <div className="flex gap-2">
+          //   <IconButton
+          //     component={Link}
+          //     to={`/admin/category/${params.row.id}`}
+          //     size="small"
+          //     color="primary"
+          //     title="Edit Category"
+          //   >
+          //     <Edit />
+          //   </IconButton>
+          //   <IconButton
+          //     onClick={() => deleteCategoryHandler(params.row.id)}
+          //     size="small"
+          //     color="error"
+          //     disabled={deleteLoading}
+          //     title="Delete Category"
+          //   >
+          //     <Delete />
+          //   </IconButton>
+          // </div>
+          <Actions editRoute={"category"} deleteHandler={deleteCategoryHandler} id={params.row.id} name={params.row.name} />
         )
       },
     },
