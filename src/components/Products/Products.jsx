@@ -87,7 +87,6 @@ const Products = () => {
   ) => {
     try {
       dispatch(allProductsRequest());
-      console.log(subcategory);
       const serverResponse = await publicCommunication?.getAllProducts(
         keyword,
         price,
@@ -97,7 +96,8 @@ const Products = () => {
         // subcategory,
         controller
       );
-      setCount(Math.ceil(serverResponse.data.filteredProductsCount/12))
+      console.log(serverResponse)
+      setCount(Math.ceil(serverResponse.data.filteredProductsCount / 12))
       if (serverResponse?.data?.success === true) {
         dispatch(allProductsSuccess(serverResponse?.data));
       }
@@ -206,9 +206,8 @@ const Products = () => {
                             {/* category list  */}
                             <li
                               key={index}
-                              className={`${
-                                index === selectedCategory && "text-red-800"
-                              }  cursor-pointer capitalize py-4 font-medium text-sm text-primary-black relative  border-b`}
+                              className={`${index === selectedCategory && "text-red-800"
+                                }  cursor-pointer capitalize py-4 font-medium text-sm text-primary-black relative  border-b`}
                               onClick={() => {
                                 selectedCategory === index
                                   ? setSelectedCategory(null)

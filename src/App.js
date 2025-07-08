@@ -132,7 +132,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/about" element={<AboutUs />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
@@ -144,7 +144,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/payment-policy" element={<PaymentPolicy />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
-        <Route path="/cancellation-policy" element={<CancellationPolicy />} /> */}
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
 
         <Route    
           path="/password/update"

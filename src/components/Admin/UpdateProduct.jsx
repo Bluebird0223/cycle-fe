@@ -46,12 +46,12 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState(0);
   const [cuttedPrice, setCuttedPrice] = useState(0);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [subCategoriesList, setSubCategoriesList] = useState([]);
+  // const [subCategoriesList, setSubCategoriesList] = useState([]);
   const [category, setCategory] = useState("");
   const [subcategory, setSubCategory] = useState("");
   const [stock, setStock] = useState(0);
-  const [warranty, setWarranty] = useState(0);
-  const [brand, setBrand] = useState("");
+  const [sku, setSku] = useState(0);
+  // const [brand, setBrand] = useState("");
   const [images, setImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
@@ -146,9 +146,8 @@ const UpdateProduct = () => {
     formData.append("price", price);
     formData.append("cuttedPrice", cuttedPrice);
     formData.append("category", category);
-    // formData.append("subcategory", subcategory);
     formData.append("stock", stock);
-    formData.append("sku", warranty);
+    formData.append("warranty", sku);
     formData.append("brandname", "KanchanDeepJyot");
 
     if (logo) {
@@ -218,19 +217,6 @@ const UpdateProduct = () => {
   const productId = params.id;
 
   useEffect(() => {
-    // const fetchSubcategory = async () => {
-    //   try {
-    //     const response = await adminCommunication.getAllSubCategory();
-    //     if (response?.data?.success) {
-    //       setSubCategoriesList(response?.data?.subcategory);
-    //     }
-    //   } catch (error) {
-    //     enqueueSnackbar("Error fetching subcategory: " + error.message, {
-    //       variant: "error",
-    //     });
-    //   }
-    // };
-
     const fetchCategories = async () => {
       try {
         const response = await adminCommunication.getAllCategory();
@@ -255,7 +241,7 @@ const UpdateProduct = () => {
             price,
             cuttedPrice,
             stock,
-            sku,
+            warranty,
             brand,
             highlights,
             specifications,
@@ -270,7 +256,7 @@ const UpdateProduct = () => {
           setPrice(price);
           setCuttedPrice(cuttedPrice);
           setStock(stock);
-          setWarranty(sku);
+          setSku(warranty);
           setHighlights(highlights || []);
           setSpecs(specifications || []);
           setOldImages(images || []);
@@ -417,7 +403,7 @@ const UpdateProduct = () => {
             />
             <TextField
               label="SKU"
-              type="text"
+              type="number"
               variant="outlined"
               size="small"
               InputProps={{
@@ -426,8 +412,8 @@ const UpdateProduct = () => {
                 },
               }}
               required
-              value={warranty}
-              onChange={(e) => setWarranty(e.target.value)}
+              value={sku}
+              onChange={(e) => setSku(e.target.value)}
             />
           </div>
 

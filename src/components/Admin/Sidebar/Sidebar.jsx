@@ -3,10 +3,10 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import GroupIcon from "@mui/icons-material/Group";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import AddBoxIcon from "@mui/icons-material/AddBox";
+// import ReviewsIcon from "@mui/icons-material/Reviews";
+// import AddBoxIcon from "@mui/icons-material/AddBox";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+// import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
@@ -17,12 +17,12 @@ import { useSnackbar } from "notistack";
 import { logoutUser } from "../../../actions/userAction";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { adminCommunication } from "../../../service/adminCommunication";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import DiscountIcon from "@mui/icons-material/Discount";
-import logo from "../../../assets/images/Faviccon.png"
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+// import { adminCommunication } from "../../../service/adminCommunication";
+// import AccountTreeIcon from "@mui/icons-material/AccountTree";
+// import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+// import DiscountIcon from "@mui/icons-material/Discount";
+// import logo from "../../../assets/images/Faviccon.png"
+// import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 
 const navMenu = [
    {

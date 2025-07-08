@@ -158,10 +158,12 @@ export const publicCommunication = {
       if (category) {
         url = `/api/v1/products?keyword=${keyword}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
       }
+
       // if (subcategory) {
       //   url = `/api/v1/products?keyword=${keyword}&subCategory=${subcategory}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
       // }
       //   let url = "/api/v1/products";
+      console.log(getServerUrl())
       return await axios.get(`${getServerUrl()}${url}`, config);
     } catch (error) {
       if (error.name === "CanceledError") {

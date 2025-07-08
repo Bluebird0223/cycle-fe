@@ -43,14 +43,14 @@ const ProductTable = () => {
     }
 
     const columns = [
-        {
-            field: "sku",
-            headerName: "Product SKU",
-            minWidth: 100,
-            width:100,
-            maxWidth:100,
-            flex: 1,
-        },
+        // {
+        //     field: "sku",
+        //     headerName: "Product SKU",
+        //     minWidth: 100,
+        //     width:100,
+        //     maxWidth:100,
+        //     flex: 1,
+        // },
         {
             field: "id",
             headerName: "Product ID",

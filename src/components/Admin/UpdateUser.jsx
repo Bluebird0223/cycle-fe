@@ -1,9 +1,9 @@
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { clearErrors, getUserDetails, updateUser } from '../../actions/userAction';
-import { UPDATE_USER_RESET, REMOVE_USER_DETAILS } from '../../constants/userConstants';
+import { Link, useParams } from 'react-router-dom';
+import { updateUser } from '../../actions/userAction';
+// import { UPDATE_USER_RESET, REMOVE_USER_DETAILS } from '../../constants/userConstants';
 import Loading from './Loading';
 import Avatar from '@mui/material/Avatar';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -20,15 +20,15 @@ const UpdateUser = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const params = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
 
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [updateError, setUpdateError] = useState(null);
-    const [isUpdated, setIsUpdated] = useState(false);
+    // const [error, setError] = useState(null);
+    // const [updateError, setUpdateError] = useState(null);
+    // const [isUpdated, setIsUpdated] = useState(false);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

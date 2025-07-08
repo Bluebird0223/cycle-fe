@@ -123,6 +123,7 @@ export const adminCommunication = {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${getCookie(tokenName)}`
           },
         }
       );
@@ -139,9 +140,9 @@ export const adminCommunication = {
   updateProduct: async function (id, productData) {
     try {
       axios.defaults.timeout = 180000;
-      const config = { header: { "Content-Type": "multipart/form-data" } };
+      const config = { headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${getCookie(tokenName)}`, } };
       return await axios.put(
-        `${getServerUrl()}/api/v1/admin/product/${id}`,
+        `${getServerUrl()}/api/v1/admin/product/update/${id}`,
         productData,
         config
       );
@@ -170,15 +171,6 @@ export const adminCommunication = {
       console.error(error?.message);
     }
   },
-  getAllSubCategory: async function () {
-    try {
-      const config = { headers: { "Content-Type": "application/json" } };
-      return axios.get(`${getServerUrl()}/api/v1/product/sub-category`, config);
-    } catch (error) {
-      return { data: { success: false, message: error.message } };
-    }
-  },
-
   createCategory: async function (categoryData) {
     try {
       const config = { headers: { "Content-Type": "multipart/form-data" } }
@@ -187,24 +179,11 @@ export const adminCommunication = {
       return { data: { success: false, message: error.message } };
     }
   },
-  createSubcategory: async function (subCategoryData) {
+  updateCategory: async function (categoryData) {
     try {
-      const config = { header: { "Content-Type": "application/json" } };
-      return axios.post(
-        `${getServerUrl()}/api/v1/product/sub-category/new`,
-        subCategoryData,
-        config
-      );
-    } catch (error) {
-      return { data: { success: false, message: error.message } };
-    }
-  },
-  updateSubCategoryStatus: async function (id) {
-    try {
-      const config = { header: { "Content-Type": "application/json" } };
-      return axios.put(
-        `${getServerUrl()}/api/v1/product/sub-category/toggle-active`,
-        { id },
+      const config = { headers: { "Content-Type": "multipart/form-data" } }
+      return axios.put(`${getServerUrl()}/api/v1/product/category/update`,
+        categoryData,
         config
       );
     } catch (error) {
@@ -230,30 +209,7 @@ export const adminCommunication = {
       return { data: { success: false, message: error.message } };
     }
   },
-  updateCategory: async function (categoryData) {
-    try {
-      const config = { header: { "Content-Type": "application/json" } };
-      return axios.put(
-        `${getServerUrl()}/api/v1/product/category/update`,
-        categoryData,
-        config
-      );
-    } catch (error) {
-      return { data: { success: false, message: error.message } };
-    }
-  },
-  updateSubcategory: async function (subCategoryData) {
-    try {
-      const config = { header: { "Content-Type": "application/json" } };
-      return axios.put(
-        `${getServerUrl()}/api/v1/product/sub-category/update`,
-        subCategoryData,
-        config
-      );
-    } catch (error) {
-      return { data: { success: false, message: error.message } };
-    }
-  },
+
   deleteCategory: async function (id) {
     try {
       const config = {
@@ -269,15 +225,6 @@ export const adminCommunication = {
       );
     } catch (error) {
       console.error('Delete category error:', error);
-      return { data: { success: false, message: error.message } };
-    }
-  },
-  getSubcategoryById: async function (id) {
-    try {
-      return await axios.get(
-        `${getServerUrl()}/api/v1/product/sub-category/${id}`
-      );
-    } catch (error) {
       return { data: { success: false, message: error.message } };
     }
   },

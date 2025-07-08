@@ -51,7 +51,7 @@ const NewProduct = () => {
   const [price, setPrice] = useState(0);
   const [cuttedPrice, setCuttedPrice] = useState(0);
   const [categoriesList, setCategoriesList] = useState([]);
-  const [subCategoriesList, setSubCategoriesList] = useState([]);
+  // const [subCategoriesList, setSubCategoriesList] = useState([]);
   const [category, setCategory] = useState("");
   const [subcategory, setSubCategory] = useState("");
   const [stock, setStock] = useState(0);
@@ -126,7 +126,7 @@ const NewProduct = () => {
   };
 
   const newProductSubmitHandler = async (e) => {
-    setDisabled(true);
+    // setDisabled(true);
     e.preventDefault();
 
     // required field checks
@@ -166,28 +166,13 @@ const NewProduct = () => {
     formData.append("thumbnail", logo);
     formData.append("user", "674d93b0a6533836239debfb");
 
-    // images.forEach((image) => {
-    //   formData.append("images", image);
-    // });
-    // formData.append("images", images);
-
     for (let i = 0; i < images.length; i++) {
       formData.append("images",images[i])
-      // console.log(images[i])
     }
 
-    // highlights.forEach((h) => {
-    //   formData.append("highlights", h);
-    // });
     formData.append("highlights",JSON.stringify(highlights))
-
-    // specs.forEach((s) => {
-    //   formData.append("specifications", JSON.stringify(s));
-    // });
-
     formData.append("specifications",JSON.stringify(specs))
-
-
+    
     const serverResponse = await adminCommunication.createProduct(formData);
     if (serverResponse) {
       navigate("/admin/products");
@@ -200,19 +185,6 @@ const NewProduct = () => {
   };
 
   useEffect(() => {
-    const fetchSubcategory = async () => {
-      try {
-        const response = await adminCommunication.getAllSubCategory();
-        if (response?.data?.success) {
-          setSubCategoriesList(response?.data?.subcategory);
-        }
-      } catch (error) {
-        enqueueSnackbar("Error fetching subcategory: " + error.message, {
-          variant: "error",
-        });
-      }
-    };
-
     // Fetch all categories for the dropdown
     const fetchCategories = async () => {
       try {
@@ -227,11 +199,9 @@ const NewProduct = () => {
       }
     };
 
-    fetchSubcategory();
+    // fetchSubcategory();
     fetchCategories();
   }, [enqueueSnackbar]);
-
-  console.log(isGroup);
 
   return (
     <>

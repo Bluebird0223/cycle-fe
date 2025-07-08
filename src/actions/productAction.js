@@ -34,6 +34,10 @@ import {
 } from "../constants/productConstants";
 import { server } from "../server";
 import { getServerUrl } from "../service/adminCommunication";
+import { getCookie } from "cookies-next";
+
+const tokenName = process.env.REACT_APP_ADMIN_TOKENNAME;
+
 
 // Get All Products --- Filter/Search/Sort
 export const getProducts =
@@ -196,7 +200,13 @@ export const updateProduct = (id, productData) => async (dispatch) => {
 export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST });
-        const { data } = await axios.delete(`${getServerUrl()}/api/v1/admin/product/${id}`);
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${getCookie(tokenName)}`,
+            },
+        };
+        const { data } = await axios.delete(`${getServerUrl()}/api/v1/admin/product/${id}`, config);
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,

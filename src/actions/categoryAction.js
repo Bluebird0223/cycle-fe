@@ -19,9 +19,7 @@ export const deleteCategory = (id) => async (dispatch) => {
                 Authorization: `Bearer ${getCookie(tokenName)}`,
             },
         };
-
-        console.log(server)
-        const { data } = await axios.delete(`${server}/api/v1/admin/product/category/delete/${id}`, config);
+        const { data } = await axios.delete(`${server}/api/v1/product/category/delete/${id}`, config);
 
         dispatch({
             type: DELETE_CATEGORY_SUCCESS,
