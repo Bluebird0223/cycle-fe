@@ -34,7 +34,7 @@ const Home = () => {
     <>
       {/* <MetaData title="Online Shopping for All Puja Needs | Kanchan Deep Jyot" /> */}
       <Categories />
-      <main className="flex flex-col gap-3 px-2 sm:mt-2">
+      <main className="flex flex-col gap-3 sm:mt-2">
         <Banner />
         <DealSlider title={"Discounts for You"} />
         {!loading && (
@@ -45,10 +45,10 @@ const Home = () => {
         )}
         
         <section className="py-3">
-          <div className="container mx-auto">
+          {/* <div className="container mx-2"> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Left Column - Full-Width Banner */}
-              <div className="flex border h-full flex-col items-start">
+              <div className="flex h-full flex-col items-start">
                 {/* Image */}
                 <div className="relative w-full h-full">
                   <img
@@ -125,7 +125,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </section>
         {/* <DealSlider title={"Top Offers On"} /> */}
         {!loading && (
