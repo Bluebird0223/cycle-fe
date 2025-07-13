@@ -16,7 +16,7 @@ import SecurityIcon from "@mui/icons-material/Security"
 import LocalShippingIcon from "@mui/icons-material/LocalShipping"
 import SupportAgentIcon from "@mui/icons-material/SupportAgent"
 import VerifiedIcon from "@mui/icons-material/Verified"
-import KanchanDeepLogoWhite from "../../../assets/images/KanchanDeepLogoWhite.png"
+import KanchanDeepLogoWhite from "../../../assets/images/Logodeep.png"
 
 const footerLinks = [
   {

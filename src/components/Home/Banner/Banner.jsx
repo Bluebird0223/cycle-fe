@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Banner.css";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import banner4 from "../../../assets/images/Banners/Banner 4.jpg";
-import nbanner2 from "../../../assets/images/Banners/Banner_2.jpg";
-import nbanner3 from "../../../assets/images/Banners/Banner_3.jpg";
-import nbanner4 from "../../../assets/images/Banners/Banner_4.jpg";
+import banner4 from "../../../assets/images/Banners/banner1.jpg";
+import nbanner2 from "../../../assets/images/Banners/banner2.jpg";
+import nbanner3 from "../../../assets/images/Banners/banner3 copy.jpg";
+import nbanner4 from "../../../assets/images/Banners/banner4.jpg";
 
 export const PreviousBtn = ({ className, onClick }) => {
   return (
@@ -31,7 +31,7 @@ export const Nxt = ({ onClick, top = "top-28" }) => {
       onClick={onClick}
       className={` h-20 w-8 rounded-s-lg items-center justify-center z-10 hidden md:flex absolute ${top} cursor-pointer right-0`}
     >
-      <ArrowForwardIosIcon className="scale-75" />
+      <ArrowForwardIosIcon className="scale-80 mr-3" />
     </div>
   );
 };
@@ -42,7 +42,7 @@ export const Pre = ({ onClick, top = "top-28" }) => {
       onClick={onClick}
       className={` ps-2  h-20 w-8 rounded-e-lg items-center justify-center z-10 hidden md:flex absolute ${top} cursor-pointer left-0`}
     >
-      <ArrowBackIosIcon className="scale-75" />
+      <ArrowBackIosIcon className="scale-80 ml-3" />
     </div>
   );
 };
@@ -50,7 +50,7 @@ export const Pre = ({ onClick, top = "top-28" }) => {
 const Banner = () => {
   const settings = {
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     dots: false,
     infinite: true,
     speed: 500,
@@ -64,12 +64,12 @@ const Banner = () => {
 
   return (
     <>
-      <section className="h-44 sm:h-96 w-full mt-1 sm:m-0 rounded-sm shadow relative overflow-hidden">
+      <section className="h-44 sm:h-96 w-full mt-1 sm:m-0 shadow relative overflow-hidden">
         <Slider {...settings}>
           {banners.map((el, i) => (
             <img
               draggable="false"
-              className="h-44 sm:h-96 w-full object-cover"
+              className="h-96 sm:h-96 w-full object-cover"
               src={el || "/placeholder.svg"}
               alt="banner"
               key={i}

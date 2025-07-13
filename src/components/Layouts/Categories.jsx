@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import publicCommunication from "../../service/publicCommunication"
+const image1 = '/products/banner2.jpg'
+const image2 = '/products/Artboard 2 copy 6.jpg'
+const image3 = '/products/twisted cotten wicks copy.jpg'
+const image4 = '/products/Artboard 5 copy.jpg'
+const image5 = '/products/kesar ashwagandha.jpg'
 
 const Categories = () => {
   const [catNav, setCatNav] = useState([])
@@ -29,8 +34,8 @@ const Categories = () => {
   return (
     <>
       {/* Featured Categories Banner */}
-      <section className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 py-12 md:py-16 relative overflow-hidden">
-        {/* Background decorative elements */}
+      {/* <section className="bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 py-12 md:py-16 relative overflow-hidden">
+        
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-10 left-10 w-20 h-20 bg-red-200 rounded-full opacity-20 animate-pulse"></div>
           <div className="absolute bottom-10 right-10 w-32 h-32 bg-orange-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
@@ -38,7 +43,7 @@ const Categories = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* <div className="text-center mb-12">
+          <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent mb-4">
               Shop by Categories
             </h2>
@@ -47,7 +52,7 @@ const Categories = () => {
               religious needs
             </p>
             <div className="w-32 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto mt-4 rounded-full"></div>
-          </div> */}
+          </div> 
 
           {loading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
@@ -67,19 +72,19 @@ const Categories = () => {
                   className="group bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 rounded-3xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:rotate-1 border border-red-100 hover:border-red-200 relative overflow-hidden"
                   key={i}
                 >
-                  {/* Background glow effect */}
+                  
                   <div className="absolute inset-0 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-100 opacity-30 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
 
-                  {/* Floating particles effect */}
+                  
                   <div className="absolute top-2 right-2 w-2 h-2 bg-red-400 rounded-full opacity-20 group-hover:opacity-100 transition-all duration-700 group-hover:animate-bounce"></div>
                   <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-orange-400 rounded-full opacity-15 group-hover:opacity-100 transition-all duration-700 delay-200 group-hover:animate-bounce"></div>
 
-                  {/* Image Container */}
+                  
                   <div className="relative w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 mx-auto mb-6 rounded-full bg-gradient-to-br from-red-200 via-orange-200 to-yellow-200 border-2 border-red-300 group-hover:border-red-400 transition-all duration-500 overflow-hidden shadow-inner">
-                    {/* Inner glow */}
+                    
                     <div className="absolute inset-0 bg-gradient-to-br from-red-200 to-orange-200 opacity-20 group-hover:opacity-50 transition-opacity duration-500 rounded-full"></div>
 
-                    {/* Rotating border effect */}
+                    
                     <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 opacity-30 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
                     <div className="absolute inset-1 rounded-full bg-white"></div>
 
@@ -94,20 +99,18 @@ const Categories = () => {
                     </div>
                   </div>
 
-                  {/* Category Info */}
+                
                   <div className="text-center relative z-10">
                     <h3 className="font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300 text-base md:text-lg mb-2 leading-tight">
                       {item.name}
                     </h3>
-                    <p className="text-sm md:text-base text-gray-500 group-hover:text-red-400 transition-colors duration-300 font-medium">
+                   <p className="text-sm md:text-base text-gray-500 group-hover:text-red-400 transition-colors duration-300 font-medium">
                       Explore Collection
-                    </p>
+                    </p> 
 
-                    {/* Animated underline */}
                     <div className="w-0 h-0.5 bg-gradient-to-r from-red-500 to-orange-500 group-hover:w-full transition-all duration-500 mx-auto mt-2 rounded-full"></div>
                   </div>
 
-                  {/* Hover Arrow with glow */}
                   <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110">
                     <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                       <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +123,6 @@ const Categories = () => {
             </div>
           )}
 
-          {/* View All Categories Button */}
           {!loading && catNav?.length > 0 && (
             <div className="text-center mt-12 md:mt-16">
               <Link
@@ -136,6 +138,47 @@ const Categories = () => {
               </Link>
             </div>
           )}
+        </div>
+      </section> */}
+
+
+      <section className="mx-auto px-2 my-8">
+        <h2 className="text-2xl font-bold text-center mb-6">Shop by Category</h2>
+        <div className="relative">
+          <div className="flex overflow-x-auto gap-6 pb-4 no-scrollbar justify-center px-2 sm:px-4 md:px-6 lg:px-8 xl:px-16">
+            {[
+              { name: 'Best Sellers', img: image1 },
+              { name: 'Twisted Cotten Wicks', img: image2 },
+              // { name: 'Kanchan Cotten Akhand Jyot', img: image3},
+              { name: 'Plain Cotten Wicks', img: image4 },
+              // { name: 'Round Cotten Wicks', img: image5 },
+              // { name: 'Kanchan Floating Wicks', img: image1 },
+              { name: 'Kanchan Kesar Ashtagandh', img: image5 },
+              // { name: 'Puja Accessories', img: image3 },
+            ].map((category, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center cursor-pointer hover:text-brown-700 hover:underline flex-shrink-0 w-32" // Fixed width
+              >
+                <div className="bg-white rounded-full shadow-md overflow-hidden hover:shadow-lg transition duration-300 w-32 h-32 flex items-center justify-center">
+                  <img
+                    src={category.img}
+                    alt={category.name}
+                    className="w-full h-full object-cover border-[1px] rounded-full transform transition duration-300 ease-in-out hover:scale-110"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://placehold.co/300x200/FACC15/FFFFFF?text=Image+Not+Found';
+                    }}
+                  />
+                </div>
+                <div className="p-2 text-center mt-2 w-full">
+                  <h3 className="font-semibold text-sm whitespace-normal break-words">
+                    {category.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

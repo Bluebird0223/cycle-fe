@@ -6,6 +6,7 @@ import { Nxt, Pre } from "../Banner/Banner"
 import { Link } from "react-router-dom"
 import publicCommunication from "../../../service/publicCommunication"
 import { useEffect, useState } from "react"
+// import image1 from "../../../../src/assets/images/Products/camphor.jpg"
 // Reference images from public folder
 const image1 = '/products/Artboard 1.jpg'
 const image2 = '/products/Artboard 2.jpg'
@@ -13,13 +14,14 @@ const image3 = '/products/Artboard 3.jpg'
 const image4 = '/products/Artboard 4.jpg'
 const image5 = '/products/Artboard 5.jpg'
 
+
 export const settings = {
-  autoplay: true,
-  autoplaySpeed: 2000,
+  // autoplay: true,
+  // autoplaySpeed: 2000,
   dots: false,
   infinite: true,
-  speed: 500,
-  slidesToShow: 4,
+  // speed: 500,
+  slidesToShow: 6,
   slidesToScroll: 1,
   initialSlide: 1,
   swipe: true,
@@ -29,21 +31,21 @@ export const settings = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 3,
       },
     },
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 3,
         slidesToScroll: 2,
       },
     },
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 3,
         slidesToScroll: 1,
       },
     },
@@ -52,30 +54,30 @@ export const settings = {
 
 // Mock data with all imported images
 const mockProducts = [
-  {
-    _id: "1",
-    image: image1,
-    name: "Naivedya Gold Neem Sambrani Cups (18 pcs + Holder)",
-    price: "375.00",
-    rating: 5,
-    reviewCount: 1,
-  },
-  {
-    _id: "2",
-    image: image2,
-    name: "Naivedya Gold - Chandan Sambrani Cups (18 pcs + Holder)",
-    price: "375.00",
-    rating: 4,
-    reviewCount: 4,
-  },
-  {
-    _id: "3",
-    image: image3,
-    name: "Naivedya Gold - Rose Cup Sambrani (18 pcs + Holder)",
-    price: "375.00",
-    rating: 5,
-    reviewCount: 2,
-  },
+  // {
+  //   _id: "1",
+  //   image: image1,
+  //   name: "Naivedya Gold Neem Sambrani Cups (18 pcs + Holder)",
+  //   price: "375.00",
+  //   rating: 5,
+  //   reviewCount: 1,
+  // },
+  // {
+  //   _id: "2",
+  //   image: image2,
+  //   name: "Naivedya Gold - Chandan Sambrani Cups (18 pcs + Holder)",
+  //   price: "375.00",
+  //   rating: 4,
+  //   reviewCount: 4,
+  // },
+  // {
+  //   _id: "3",
+  //   image: image3,
+  //   name: "Naivedya Gold - Rose Cup Sambrani (18 pcs + Holder)",
+  //   price: "375.00",
+  //   rating: 5,
+  //   reviewCount: 2,
+  // },
   {
     _id: "4",
     image: image4,
@@ -85,8 +87,48 @@ const mockProducts = [
     reviewCount: 2,
   },
   {
+    _id: "4",
+    image: image5,
+    name: "Naivedya Gold - Jasmine Sambrani Cups (18 pcs + Holder)",
+    price: "375.00",
+    rating: 5,
+    reviewCount: 2,
+  },
+  {
+    _id: "5",
+    image: image4,
+    name: "Naivedya Gold - Lavender Sambrani Cups (18 pcs + Holder)",
+    price: "375.00",
+    rating: 4,
+    reviewCount: 3,
+  },
+  {
     _id: "5",
     image: image5,
+    name: "Naivedya Gold - Lavender Sambrani Cups (18 pcs + Holder)",
+    price: "375.00",
+    rating: 4,
+    reviewCount: 3,
+  },
+  {
+    _id: "5",
+    image: image4,
+    name: "Naivedya Gold - Lavender Sambrani Cups (18 pcs + Holder)",
+    price: "375.00",
+    rating: 4,
+    reviewCount: 3,
+  },
+  {
+    _id: "5",
+    image: image5,
+    name: "Naivedya Gold - Lavender Sambrani Cups (18 pcs + Holder)",
+    price: "375.00",
+    rating: 4,
+    reviewCount: 3,
+  },
+  {
+    _id: "5",
+    image: image4,
     name: "Naivedya Gold - Lavender Sambrani Cups (18 pcs + Holder)",
     price: "375.00",
     rating: 4,
@@ -140,9 +182,10 @@ const DealSlider = ({ title }) => {
   // Loading state
   if (loading) {
     return (
-      <section className="bg-white w-full shadow-sm border border-gray-200 rounded-lg overflow-hidden mb-6">
-        <div className="flex px-6 py-4 justify-between items-center border-b border-gray-200">
+      <section className="bg-white shadow-sm border h-46 w-fill border-gray-200 rounded-lg overflow-hidden mb-6">
+        <div className="flex px-2 py-4 justify-between items-center border-b border-gray-200">
           <h1 className="text-xl font-semibold text-gray-800 capitalize">{title}</h1>
+          {/* <p className="text-sm sm:text-base text-gray-400">{tagline}</p> */}
         </div>
         <div className="p-4">
           <div className="flex space-x-4">
@@ -180,7 +223,7 @@ const DealSlider = ({ title }) => {
   }
 
   return (
-    <section className="bg-white w-full shadow-sm border border-gray-200 rounded-lg overflow-hidden mb-6">
+    <section className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden mb-6">
       {/* Header */}
       <div className="flex px-6 py-4 justify-between items-center border-b border-gray-200">
         <h1 className="text-xl font-semibold text-gray-800 capitalize">{title}</h1>
@@ -188,7 +231,7 @@ const DealSlider = ({ title }) => {
           to="/products"
           className="text-xs font-medium text-white px-4 py-2 rounded transition-colors hover:opacity-90"
           style={{ backgroundColor: "#7d0d02" }}
-        >
+        > 
           VIEW ALL
         </Link>
       </div>
@@ -198,7 +241,7 @@ const DealSlider = ({ title }) => {
         {products.length > 0 ? (
           <Slider {...settings}>
             {products.map((item, i) => (
-              <div key={item._id || i} className="px-2">
+              <div key={item._id || i}>
                 <Product {...item} />
               </div>
             ))}
